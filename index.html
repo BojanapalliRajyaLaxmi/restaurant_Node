@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant</title>
+</head>
+<style>
+    div{
+        border: 10px solid whitesmoke;
+        margin: 10px;
+        padding: 10px;
+        height: auto;
+        border-radius: 20px;
+        background-color: #8BC6EC;
+background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+        align-content: center;
+    }
+    img{
+        border-radius: 20px;
+    }
+    p{
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    #ele2{
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 22px;
+        text-decoration:underline;
+    }
+</style>
+<body>
+    <script>
+        async function food() {
+            let response=await fetch("http://localhost:3000/food");
+            let data=await response.json();
+            console.log(data)
+            let con1=document.createElement("div")
+            con1.id="con1"
+            document.body.appendChild(con1)
+            for(var a in data){
+                let con=document.createElement("div");
+                con1.appendChild(con);
+                let ele1=document.createElement("p");
+                ele1.id="ele1"
+                ele1.innerHTML="Item id: "+data[a].id;
+                let ele2=document.createElement("p")
+                ele2.id="ele2"
+                ele2.innerHTML=data[a].name
+                let ele3=document.createElement("p");
+                ele3.id="ele3"
+                if(data[a].priceInfo){
+                    ele3.innerHTML="Price:  "+data[a].priceInfo
+                }else{
+                    con.innerHTML="price:  "+"free ";
+                }
+                let img=document.createElement("img");
+                if(data[a].image){
+                    img.src=data[a].image
+                }
+                else{
+                    img.src="https://tse4.mm.bing.net/th?id=OIP.peiHAVNkTfTVDsz1LtJFrwHaF7&pid=Api&P=0&h=180"
+                }
+                con.append(ele1,ele2,ele3,img)
+                console.log(data[a].id)
+                console.log(data[a].name)
+            }
+        }
+        food()
+    </script>
+</body>
+</html>
